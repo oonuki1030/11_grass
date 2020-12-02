@@ -42,11 +42,13 @@
             {
                 float2 tc = texcoord * float2(0.05,0.05);
                 float time = _Time.y * 0.5;
-                float noise 
+                float noise
                     = Noise((tc + time) * 1.0)
                     + Noise((tc + time) * 2.0) * 0.5
-                    + Noise((tc + time) * 4.0) * 0.25;
-                return noise / (1.0 + 0.5 + 0.25); // 正規化
+                    + Noise((tc + time) * 4.0) * 0.25
+                    + Noise((tc + time) * 2.0) * 0.125
+                    + Noise((tc + time) * 1.0) * 0.0625;
+                return noise / (1.0 + 0.5 + 0.25 + 0.125 + 0.0625); // 正規化 
             }
 
             float2 frag (v2f_customrendertexture i) : SV_Target
